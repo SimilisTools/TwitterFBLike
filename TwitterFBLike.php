@@ -109,7 +109,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		if ( !empty( $param6 ) ) {
 			$extra_url = $param6;
 			$extra_url = str_replace(" ", "_", $extra_url);
-			$url.= $url."#".$extra_url;
+			$url = $url."#".$extra_url;
 			// TODO: Deal with http://www.utf8-chartable.de/
 		}
 		
