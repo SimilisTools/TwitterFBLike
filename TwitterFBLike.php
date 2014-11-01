@@ -26,7 +26,7 @@ $wgHooks['BeforePageDisplay'][] = 'twitterFBLikeParserFeedHead'; # Setup functio
 
 $wgTwitterFBLikeTweetName = "Tweet";
 $wgTwitterFBLikeFacebookID = "";
-$wgTwitterFBLikeVia = "similis_cc";
+$wgTwitterFBLikeTwitterVia = "";
 
 function twitterFBLikeParserFunction_Setup( &$parser ) {
 	# Set a function hook associating the "twitterFBLike_parser" magic word with our function
@@ -51,6 +51,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		global $wgSitename;
 		global $wgTwitterFBLikeFacebookID;
 		global $wgTwitterFBLikeTweetName;
+		global $wgTwitterFBLikeTwitterVia;
 		
 		$show = array( "twitter", "facebook" );
 	
@@ -116,8 +117,8 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		$facebook = "";
 		
 		$via = "";
-		if ( $wgTwitterFBLikeVia && !empty($wgTwitterFBLikeVia) ) {
-			$via = "data-via='".$wgTwitterFBLikeVia."'";
+		if ( $wgTwitterFBLikeTwitterVia && !empty($wgTwitterFBLikeTwitterVia) ) {
+			$via = "data-via='".$wgTwitterFBLikeTwitterVia."'";
 		}
 
 		if ( in_array( "twitter", $show ) ) {
