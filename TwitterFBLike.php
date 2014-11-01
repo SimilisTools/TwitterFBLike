@@ -113,6 +113,8 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 			// TODO: Deal with http://www.utf8-chartable.de/
 		}
 		
+		// TODO: Need improve a lot considering Twitter: https://dev.twitter.com/web/tweet-button
+		
 		$twitter = "";
 		$facebook = "";
 		
