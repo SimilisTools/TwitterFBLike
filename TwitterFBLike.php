@@ -46,7 +46,7 @@ function twitterFBLikeParserFeedHead(&$out, &$sk) {
 }
 
  
-function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '', $param3 = '', $param4 = '', $param5 = "" ) {
+function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '', $param3 = '', $param4 = '', $param5 = "", $param6 ) {
 		global $wgSitename;
 		global $wgTwitterFBLikeFacebookID;
 		global $wgTwitterFBLikeTweetName;
@@ -101,9 +101,14 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		}
 		
 		if ( !empty( $param5 ) ) {
-			if ( $param5 ) {
-				$show = explode( ",", $param5 );
-			}
+			$show = explode( ",", $param5 );
+		}
+		
+		if ( !empty( $param6 ) ) {
+			$extra_url = $param6;
+			$extra_url = str_replace(" ", "_");
+			$url.= $url."#".$extra_url;
+			// TODO: Deal http://www.utf8-chartable.de/
 		}
 		
 		$twitter = "";
@@ -112,8 +117,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		if ( in_array( "twitter", $show ) ) {
 			$twitter.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' data-url='$url' $twitterextra>
 					".$wgTwitterFBLikeTweetName."
-				</a>
-				<script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script>";
+				</a>";
 		}
 		
 		if ( in_array( "facebook", $show ) ) {
@@ -124,7 +128,8 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 			";
 		}
 		
-		$output = "<div class='twitterFBLike_$size' twitterFBLike_$urltitle' style='float: ${float}'>".$twitter.$facebook."</div>";
+		$output = "<div class='twitterFBLike_$size' twitterFBLike_$urltitle' style='float: ${float}'>".$twitter.$facebook."<script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script></div>";
+
 		
 
 		
