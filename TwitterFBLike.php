@@ -101,7 +101,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 					Tweet
 				</a>
 				<script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script>
-				<iframe src='http://www.facebook.com/plugins/like.php?href=${url}&layout=${layout}&show_faces=false&width=450&action=$action&colorscheme=light&height=65'
+				<iframe src='http://www.facebook.com/plugins/like.php?".$FBappID."href=${url}&layout=${layout}&show_faces=false&width=450&action=$action&colorscheme=light&height=65'
 					scrolling='no' frameborder='0' class='fb-like' style='width:${width}px; height: ${height}px;' allowTransparency='true'>
 				</iframe>
 			</div>
