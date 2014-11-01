@@ -26,6 +26,7 @@ $wgHooks['BeforePageDisplay'][] = 'twitterFBLikeParserFeedHead'; # Setup functio
 
 $wgTwitterFBLikeTweetName = "Tweet";
 $wgTwitterFBLikeFacebookID = "";
+$wgTwitterFBLikeVia = "similis_cc";
 
 function twitterFBLikeParserFunction_Setup( &$parser ) {
 	# Set a function hook associating the "twitterFBLike_parser" magic word with our function
@@ -106,16 +107,21 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		
 		if ( !empty( $param6 ) ) {
 			$extra_url = $param6;
-			$extra_url = str_replace(" ", "_");
+			$extra_url = str_replace(" ", "_", $extra_url);
 			$url.= $url."#".$extra_url;
-			// TODO: Deal http://www.utf8-chartable.de/
+			// TODO: Deal with http://www.utf8-chartable.de/
 		}
 		
 		$twitter = "";
 		$facebook = "";
+		
+		$via = "";
+		if ( $wgTwitterFBLikeVia && !empty($wgTwitterFBLikeVia) ) {
+			$via = "data-via='".$wgTwitterFBLikeVia."'";
+		}
 
 		if ( in_array( "twitter", $show ) ) {
-			$twitter.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' data-url='$url' $twitterextra>
+			$twitter.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' $via data-url='$url' $twitterextra>
 					".$wgTwitterFBLikeTweetName."
 				</a>";
 		}
