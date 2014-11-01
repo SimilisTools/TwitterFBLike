@@ -8,6 +8,7 @@
  * @subpackage Extensions
  * @author Barry Coughlan
  * @copyright © 2012 Barry Coughlan
+ * modified Toniher
  * @licence GNU General Public Licence 2.0 or later
  */
 
@@ -22,6 +23,8 @@ $wgExtensionCredits['other'][] = array(
 $wgHooks['ParserFirstCallInit'][] = 'twitterFBLikeParserFunction_Setup';
 $wgHooks['LanguageGetMagic'][]       = 'twitterFBLikeParserFunction_Magic';
 $wgHooks['BeforePageDisplay'][] = 'twitterFBLikeParserFeedHead'; # Setup function
+
+$wgTwitterFBLikeFacebookID = "";
 
 function twitterFBLikeParserFunction_Setup( &$parser ) {
 	# Set a function hook associating the "twitterFBLike_parser" magic word with our function
@@ -42,7 +45,7 @@ function twitterFBLikeParserFeedHead(&$out, &$sk) {
 }
 
  
-function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '', $param3 = '' ) {
+function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '', $param3 = '', $param4 = '' ) {
 		global $wgSitename;
 	
 		if ($param1 === "left" || $param1 === "right") {
@@ -79,9 +82,18 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		$urltitle = $title->getPartialURL(); //e.g. "Main_Page"
 		$url = $title->getFullURL();
 		if (!$url ) return "";
-		
-		$text = str_replace("\"", "\\\"", $wgSitename . ": " . $title->getFullText());
 
+		$text = str_replace("\"", "\\\"", $wgSitename . ": " . $title->getFullText());
+		if ( !empty( $param4 ) ) {
+			$text = $param4;
+			$text = str_replace("\"", "\\\"", $text);
+		}
+		
+		$FBappID = "";
+		
+		if ( !empty( $wgTwitterFBLikeFacebookID ) ) {
+			$FBappID = "app_id=".$wgTwitterFBLikeFacebookID."&amp;";
+		}
 		
 		$output = "
 			<div class='twitterFBLike_$size' twitterFBLike_$urltitle' style='float: ${float}'>
@@ -95,5 +107,5 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 			</div>
 			";
 
-		return $parser->insertStripItem($output, $parser->mStripState);;
+		return $parser->insertStripItem($output, $parser->mStripState);
 }
