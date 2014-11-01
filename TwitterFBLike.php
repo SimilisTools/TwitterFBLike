@@ -45,8 +45,10 @@ function twitterFBLikeParserFeedHead(&$out, &$sk) {
 }
 
  
-function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '', $param3 = '', $param4 = '' ) {
+function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '', $param3 = '', $param4 = '', $param5 = "" ) {
 		global $wgSitename;
+		
+		$show = array( "twitter", "facebook" );
 	
 		if ($param1 === "left" || $param1 === "right") {
 			$float = $param1;
@@ -95,17 +97,30 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 			$FBappID = "app_id=".$wgTwitterFBLikeFacebookID."&amp;";
 		}
 		
-		$output = "
-			<div class='twitterFBLike_$size' twitterFBLike_$urltitle' style='float: ${float}'>
-				<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' data-url='$url' $twitterextra>
+		if ( !empty( $param5 ) ) {
+			if ( $param5 ) {
+				$show = explode( ",", $param5 );
+			}
+		}
+		
+		$output = "<div class='twitterFBLike_$size' twitterFBLike_$urltitle' style='float: ${float}'>";
+		
+		if ( in_array( "twitter", $show ) ) {
+			$output.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' data-url='$url' $twitterextra>
 					Tweet
 				</a>
-				<script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script>
-				<iframe src='http://www.facebook.com/plugins/like.php?".$FBappID."href=${url}&layout=${layout}&show_faces=false&width=450&action=$action&colorscheme=light&height=65'
+				<script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script>";
+		}
+		
+		if ( in_array( "facebook", $show ) ) {
+			$output.= "
+				<iframe src='http://www.facebook.com/plugins/like.php?".$FBappID."href=${url}&amp;layout=${layout}&show_faces=false&amp;send=false&amp;width=450&amp;action=$action&colorscheme=light&height=65'
 					scrolling='no' frameborder='0' class='fb-like' style='width:${width}px; height: ${height}px;' allowTransparency='true'>
 				</iframe>
-			</div>
 			";
+		}
+		
+		$output.="</div>";
 
 		return $parser->insertStripItem($output, $parser->mStripState);
 }
