@@ -24,6 +24,7 @@ $wgHooks['ParserFirstCallInit'][] = 'twitterFBLikeParserFunction_Setup';
 $wgHooks['LanguageGetMagic'][]       = 'twitterFBLikeParserFunction_Magic';
 $wgHooks['BeforePageDisplay'][] = 'twitterFBLikeParserFeedHead'; # Setup function
 
+$wgTwitterFBLikeTweetName = "Tweet";
 $wgTwitterFBLikeFacebookID = "";
 
 function twitterFBLikeParserFunction_Setup( &$parser ) {
@@ -47,6 +48,8 @@ function twitterFBLikeParserFeedHead(&$out, &$sk) {
  
 function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '', $param3 = '', $param4 = '', $param5 = "" ) {
 		global $wgSitename;
+		global $wgTwitterFBLikeFacebookID;
+		global $wgTwitterFBLikeTweetName;
 		
 		$show = array( "twitter", "facebook" );
 	
@@ -107,7 +110,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		
 		if ( in_array( "twitter", $show ) ) {
 			$output.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' data-url='$url' $twitterextra>
-					Tweet
+					".$wgTwitterFBLikeTweetName."
 				</a>
 				<script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script>";
 		}
