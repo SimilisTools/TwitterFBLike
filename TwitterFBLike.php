@@ -142,9 +142,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		$facebook = "";
 
 		if ( in_array( "twitter", $show ) ) {
-			$twitter.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' $via $count data-url='$url' $twitterextra>
-					".$wgTwitterFBLikeTweetName."
-				</a>";
+			$twitter.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' $via $count data-url='$url' $twitterextra>".$wgTwitterFBLikeTweetName."</a>";
 		}
 		
 		if ( in_array( "facebook", $show ) ) {
