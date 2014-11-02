@@ -146,11 +146,8 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		}
 		
 		if ( in_array( "facebook", $show ) ) {
-			$facebook.= "
-				<iframe src='http://www.facebook.com/plugins/like.php?".$FBappID."href=${url}&layout=${layout}&show_faces=false&send=false&width=450&amp;action=$action&colorscheme=light&height=65'
-					scrolling='no' frameborder='0' class='fb-like' style='width:${width}px; height: ${height}px;' allowTransparency='true'>
-				</iframe>
-			";
+			$facebook.= "<iframe src='http://www.facebook.com/plugins/like.php?".$FBappID."href=${url}&layout=${layout}&show_faces=false&send=false&width=450&amp;action=$action&colorscheme=light&height=65'
+					scrolling='no' frameborder='0' class='fb-like' style='width:${width}px; height: ${height}px;' allowTransparency='true'></iframe>";
 		}
 		
 		$output = "<div class='twitterFBLike_$size' twitterFBLike_$urltitle' style='float: ${float}'>".$twitter.$facebook."<script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script></div>";
