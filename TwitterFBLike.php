@@ -83,7 +83,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 			$width = 75;
 			$action="like";
 		} else {
-			$width = 115;
+			$width = 135;
 			$action="recommend";
 		}
 
