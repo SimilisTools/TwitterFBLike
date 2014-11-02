@@ -26,7 +26,6 @@ $wgHooks['BeforePageDisplay'][] = 'twitterFBLikeParserFeedHead'; # Setup functio
 
 $wgTwitterFBLikeTweetName = "Tweet";
 $wgTwitterFBLikeFacebookID = "";
-$wgTwitterFBLikeTwitterVia = "";
 
 function twitterFBLikeParserFunction_Setup( &$parser ) {
 	# Set a function hook associating the "twitterFBLike_parser" magic word with our function
@@ -51,16 +50,19 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		global $wgSitename;
 		global $wgTwitterFBLikeFacebookID;
 		global $wgTwitterFBLikeTweetName;
-		global $wgTwitterFBLikeTwitterVia;
 		
 		$show = array( "twitter", "facebook" );
+		$via = "";
+		$count = "data-count='horizontal'";
 	
+		// Location
 		if ($param1 === "left" || $param1 === "right") {
 			$float = $param1;
 		} else {
 			$float = "none";
 		}
 		
+		// size
 		if ($param2 === "small") {
 			$twitterextra="";
 			$size="small";
@@ -75,12 +77,30 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 			$height = "65";
 		}
 		
-		if ($param3 === "like") {
+		// Extra
+		$extra = explode(",", $param3);
+		if ( in_array( "like", $extra ) ) {
 			$width = 75;
 			$action="like";
 		} else {
 			$width = 115;
 			$action="recommend";
+		}
+
+		foreach ( $extra as $ex ) {
+			if ( preg_match( "/via=/", $ex ) ) {
+				$viaparams = explode("=", trim($ex), 2);
+				if ( key_exists( 1, $viaparams ) ) {
+					$via = "data-via=".$viaparams[1];
+				}
+			}
+			
+			if ( preg_match( "/count=/", $ex ) ) {
+				$countparams = explode("=", trim($ex), 2);
+				if ( key_exists( 1, $countparams ) ) {
+					$count = "data-count=".$countparams[1];
+				}
+			}
 		}
 		
 		//Get page title and URL
@@ -90,6 +110,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		$url = $title->getFullURL();
 		if (!$url ) return "";
 
+		// Text to share
 		$text = str_replace("\"", "\\\"", $wgSitename . ": " . $title->getFullText());
 		if ( !empty( $param4 ) ) {
 			$text = $param4;
@@ -102,10 +123,12 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 			$FBappID = "app_id=".$wgTwitterFBLikeFacebookID."&amp;";
 		}
 		
+		// Services
 		if ( !empty( $param5 ) ) {
 			$show = explode( ",", $param5 );
 		}
 		
+		// URL
 		if ( !empty( $param6 ) ) {
 			$extra_url = $param6;
 			$extra_url = str_replace(" ", "_", $extra_url);
@@ -117,14 +140,9 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		
 		$twitter = "";
 		$facebook = "";
-		
-		$via = "";
-		if ( $wgTwitterFBLikeTwitterVia && !empty($wgTwitterFBLikeTwitterVia) ) {
-			$via = "data-via='".$wgTwitterFBLikeTwitterVia."'";
-		}
 
 		if ( in_array( "twitter", $show ) ) {
-			$twitter.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' $via data-url='$url' $twitterextra>
+			$twitter.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' $via $count data-url='$url' $twitterextra>
 					".$wgTwitterFBLikeTweetName."
 				</a>";
 		}
