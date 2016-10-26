@@ -68,7 +68,7 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 			$size="small";
 			$linebreak = "";
 			$layout = "button_count";
-			$height = "21";
+			$height = "23";
 		} else {
 			$twitterextra="data-count=\"vertical\"";
 			$size="big";
