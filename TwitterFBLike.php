@@ -16,7 +16,7 @@ $wgExtensionCredits['other'][] = array(
 	'path' => __FILE__,
 	'name' => 'TwitterFBLike', 
 	'author' => 'Barry Coughlan', 
-	'url' => 'http://mediawiki.org/wiki/Extension:TwitterFBLike',
+	'url' => 'https://mediawiki.org/wiki/Extension:TwitterFBLike',
 	'description' => 'Template that inserts Twitter and Facebook "Like" buttons on a page',
 );
 
@@ -142,15 +142,15 @@ function twitterFBLikeParserFunction_Render( &$parser, $param1 = '', $param2 = '
 		$facebook = "";
 
 		if ( in_array( "twitter", $show ) ) {
-			$twitter.="<a style='display: none' href='http://twitter.com/share' class='twitter-share-button' data-text='$text' $via $count data-url='$url' $twitterextra>".$wgTwitterFBLikeTweetName."</a>";
+			$twitter.="<a style='display: none' href='https://twitter.com/share' class='twitter-share-button' data-text='$text' $via $count data-url='$url' $twitterextra>".$wgTwitterFBLikeTweetName."</a>";
 		}
 		
 		if ( in_array( "facebook", $show ) ) {
-			$facebook.= "<iframe src='http://www.facebook.com/plugins/like.php?".$FBappID."href=${url}&layout=${layout}&show_faces=false&send=false&width=450&amp;action=$action&colorscheme=light&height=65'
+			$facebook.= "<iframe src='https://www.facebook.com/plugins/like.php?".$FBappID."href=${url}&layout=${layout}&show_faces=false&send=false&width=450&amp;action=$action&colorscheme=light&height=65'
 					scrolling='no' frameborder='0' class='fb-like' style='width:${width}px; height: ${height}px;' allowTransparency='true'></iframe>";
 		}
 		
-		$output = "<div class='twitterFBLike_$size' twitterFBLike_$urltitle' style='float: ${float}'>".$twitter.$facebook."<script src='http://platform.twitter.com/widgets.js' type='text/javascript'></script></div>";
+		$output = "<div class='twitterFBLike_$size' twitterFBLike_$urltitle' style='float: ${float}'>".$twitter.$facebook."<script src='https://platform.twitter.com/widgets.js' type='text/javascript'></script></div>";
 
 		
 
